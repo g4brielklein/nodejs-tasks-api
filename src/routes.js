@@ -16,18 +16,12 @@ export const routes = [
     url: '/tasks',
     method: 'POST',
     handler: async (req, res) => {
-      const buffers = []
-    
-      for await (let chunk of req) {
-        buffers.push(chunk)
-      }
-      
-      req.body = JSON.parse(Buffer.concat(buffers))
+      const { title, description } = req.body
 
       const task = {
         id: randomUUID(),
-        title: req.body.title,
-        description: req.body.description,
+        title,
+        description,
       }
 
       tasks.push(task)
