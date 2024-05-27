@@ -5,5 +5,7 @@ export const json = async (req, res) => {
     buffers.push(chunk)
   }
 
+  res.setHeader('Content-type', 'application/json')
+
   return buffers.length ? JSON.parse(Buffer.concat(buffers)) : {}
 }

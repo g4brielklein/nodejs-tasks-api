@@ -8,7 +8,6 @@ export const routes = [
     method: 'GET',
     handler: (req, res) => {
       return res
-      .setHeader('Content-type', 'application/json')
       .end(JSON.stringify(tasks))
     }
   },
@@ -17,11 +16,15 @@ export const routes = [
     method: 'POST',
     handler: async (req, res) => {
       const { title, description } = req.body
+      const created_at = new Date()
 
       const task = {
         id: randomUUID(),
         title,
         description,
+        completed_at: null,
+        created_at,
+        updated_at: created_at,
       }
 
       tasks.push(task)
