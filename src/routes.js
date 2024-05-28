@@ -20,11 +20,15 @@ export const routes = [
     method: 'POST',
     handler: async (req, res) => {
       const { title, description } = req.body
+      const created_at = new Date()
 
       const task = {
         id: randomUUID(),
         title,
         description,
+        completed_at: null,
+        created_at,
+        updated_at: created_at,
       }
 
       db.create(targetTable, task)
