@@ -22,6 +22,10 @@ export const routes = [
       const { title, description } = req.body
       const created_at = new Date()
 
+      if (!title || !description) {
+        return res.writeHead(400).end('Both title and description are required')
+      }
+
       const task = {
         id: randomUUID(),
         title,
@@ -32,6 +36,35 @@ export const routes = [
       }
 
       db.create(targetTable, task)
+
+      return res.writeHead(201).end()
+    }
+  },
+  {
+    url: '/tasks',
+    method: 'PUT',
+    handler: (req, res) => {
+      req.params = { id: '3' }
+      
+      const { title, description } = req.body
+      const { id } = req.params
+
+      if (!title || !description) {
+        return res.writeHead(400).end('Both title and description are required')
+      }
+
+      const foundTask = db.selectById(targetTable, id)
+
+      if (!foundTask) return res.writeHead(404).end(`Task with id ${id} not found`)
+
+      const newTaskValues = {
+        ...foundTask,
+        title,
+        description,
+        updated_at: new Date(),
+      }
+
+      db.put(targetTable, id, newTaskValues)
 
       return res.writeHead(201).end()
     }

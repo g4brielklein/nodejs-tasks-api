@@ -23,12 +23,28 @@ export class database {
     return this.#data[table]
   }
 
+  selectById = (table, id) => {
+    const index = this.#data[table].findIndex(row => row.id === String(id))
+    if (index === -1) return null
+
+    return this.#data[table][index]
+  }
+
   create = (table, data) => {
     if (Array.isArray(this.#data[table])) {
       this.#data[table].push(data)
     } else {
       this.#data[table] = [data]
     }
+
+    this.#persist()
+  }
+
+  put = (table, id, data) => {
+    const index = this.#data[table].findIndex(row => row.id === String(id))
+    if (index === -1) return null
+
+    this.#data[table][index] = data
 
     this.#persist()
   }
