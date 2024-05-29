@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { database } from './database.js'
+import { getQueryParams } from './utils/get-query-params.js'
 
 const db = new database()
 const targetTable = 'tasks'
@@ -41,11 +42,9 @@ export const routes = [
     }
   },
   {
-    url: '/tasks',
+    url: getQueryParams('/tasks/:id'),
     method: 'PUT',
     handler: (req, res) => {
-      req.params = { id: '3' }
-      
       const { title, description } = req.body
       const { id } = req.params
 
