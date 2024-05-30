@@ -67,5 +67,22 @@ export const routes = [
 
       return res.writeHead(201).end()
     }
+  },
+  {
+    url: getQueryParams('/tasks/:id'),
+    method: 'DELETE',
+    handler: (req, res) => {
+      const { id } = req.params
+
+      const taskToDelete = db.selectById(targetTable, id)
+
+      if (!taskToDelete) {
+        return res.writeHead(404).end()
+      }
+
+      db.delete(targetTable, taskToDelete.id)
+
+      return res.end()
+    }
   }
 ]
