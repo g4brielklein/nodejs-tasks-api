@@ -7,7 +7,7 @@ const targetTable = 'tasks'
 
 export const routes = [
   {
-    url: '/tasks',
+    url: getQueryParams('/tasks'),
     method: 'GET',
     handler: (req, res) => {
       const tasks = db.select(targetTable)
@@ -17,7 +17,7 @@ export const routes = [
     }
   },
   {
-    url: '/tasks',
+    url: getQueryParams('/tasks'),
     method: 'POST',
     handler: async (req, res) => {
       const { title, description } = req.body

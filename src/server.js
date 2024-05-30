@@ -10,8 +10,8 @@ const server = http.createServer(async (req, res) => {
   const route = routes.find(route => route.method === method && route.url.test(url))
   
   const routeParams = url.match(route.url)
-  const { ...params } = routeParams.groups
-  req.params = params
+  const { ...params } = routeParams.groups || {}
+  req.params = params 
 
   if (!route) return res.writeHead(404).end()
     
