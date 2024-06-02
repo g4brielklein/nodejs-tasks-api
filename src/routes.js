@@ -86,7 +86,7 @@ export const routes = [
     }
   },
   {
-    url: getQueryParams('/tasks/:id'),
+    url: getQueryParams('/tasks/:id/complete'),
     method: 'PATCH',
     handler: (req, res) => {
       const { id } = req.params
@@ -98,10 +98,10 @@ export const routes = [
       }
 
       const data = {
-        completed_at: new Date()
+        completed_at: foundTask.completed_at ? null : new Date()
       }
 
-      db.markTaskAsCompleted(id, data)
+      db.updateTaskCompletion(id, data)
 
       return res.end(id)
     }

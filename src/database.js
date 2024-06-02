@@ -60,7 +60,7 @@ export class database {
     this.#persist()
   }
 
-  markTaskAsCompleted = (id, data) => {
+  updateTaskCompletion = (id, data) => {
     const index = this.#data['tasks'].findIndex(task => task.id === id)
 
     if (index === -1) {
