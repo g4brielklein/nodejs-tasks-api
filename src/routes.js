@@ -77,7 +77,7 @@ export const routes = [
       const taskToDelete = db.selectById(targetTable, id)
 
       if (!taskToDelete) {
-        return res.writeHead(404).end()
+        return res.writeHead(404).end(`Task with id ${id} not found`)
       }
 
       db.delete(targetTable, taskToDelete.id)
