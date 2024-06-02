@@ -57,5 +57,18 @@ export class database {
     }
 
     this.#data[table].splice(index, 1)
+    this.#persist()
+  }
+
+  markTaskAsCompleted = (id, data) => {
+    const index = this.#data['tasks'].findIndex(task => task.id === id)
+
+    if (index === -1) {
+      return
+    }
+
+    this.#data['tasks'][index].completed_at = data.completed_at
+
+    this.#persist()
   }
 }

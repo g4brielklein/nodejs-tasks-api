@@ -84,5 +84,26 @@ export const routes = [
 
       return res.end()
     }
+  },
+  {
+    url: getQueryParams('/tasks/:id'),
+    method: 'PATCH',
+    handler: (req, res) => {
+      const { id } = req.params
+
+      const foundTask = db.selectById(targetTable, id)
+
+      if (!foundTask) {
+        return res.writeHead(404).end(`Task with id ${id} not found`)
+      }
+
+      const data = {
+        completed_at: new Date()
+      }
+
+      db.markTaskAsCompleted(id, data)
+
+      return res.end(id)
+    }
   }
 ]
